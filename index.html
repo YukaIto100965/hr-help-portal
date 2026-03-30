@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>人事労務ヘルプセンター</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Hiragino Sans', 'Meiryo', sans-serif; background: #f5f7fa; color: #333; }
+    header { background: #1a73e8; color: white; padding: 24px; text-align: center; }
+    header h1 { font-size: 1.8rem; margin-bottom: 8px; }
+    header p { font-size: 0.95rem; opacity: 0.9; }
+    .search-box { max-width: 700px; margin: 24px auto; padding: 0 16px; }
+    .search-box input {
+      width: 100%; padding: 12px 16px; font-size: 1rem;
+      border: 1px solid #ddd; border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+    .category-tabs { display: flex; flex-wrap: wrap; gap: 8px; max-width: 900px; margin: 0 auto 16px; padding: 0 16px; }
+    .tab {
+      padding: 6px 14px; border-radius: 20px; border: 1px solid #1a73e8;
+      background: white; color: #1a73e8; cursor: pointer; font-size: 0.85rem;
+    }
+    .tab.active, .tab:hover { background: #1a73e8; color: white; }
+    .container { max-width: 900px; margin: 0 auto; padding: 0 16px 40px; }
+    .faq-item {
+      background: white; border-radius: 10px; margin-bottom: 12px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08); overflow: hidden;
+    }
+    .faq-question {
+      padding: 16px 20px; cursor: pointer; display: flex;
+      justify-content: space-between; align-items: center;
+      font-weight: bold; font-size: 0.95rem;
+    }
+    .faq-question:hover { background: #f0f6ff; }
+    .faq-question .arrow { transition: transform 0.2s; font-size: 0.8rem; color: #888; }
+    .faq-item.open .arrow { transform: rotate(180deg); }
+    .faq-answer {
+      display: none; padding: 16px 20px; border-top: 1px solid #eee;
+      font-size: 0.9rem; line-height: 1.7; color: #555;
+    }
+    .faq-item.open .faq-answer { display: block; }
+    .tag {
+      display: inline-block; background: #e8f0fe; color: #1a73e8;
+      border-radius: 4px; padding: 2px 8px; font-size: 0.75rem;
+      margin-right: 8px; font-weight: normal;
+    }
+    .no-result { text-align: center; padding: 40px; color: #999; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>人事労務ヘルプセンター</h1>
+  <p>ソウルドアウト株式会社 従業員向けFAQ</p>
+</header>
+
+<div class="search-box">
+  <input type="text" id="searchInput" placeholder="キーワードで検索（例：有給、保険証、給与）">
+</div>
+
+<div class="category-tabs">
+  <button class="tab active" onclick="filterCategory('all', this)">すべて</button>
+  <button class="tab" onclick="filterCategory('休暇', this)">休暇</button>
+  <button class="tab" onclick="filterCategory('勤怠', this)">勤怠・給与</button>
+  <button class="tab" onclick="filterCategory('組織', this)">組織・異動</button>
+  <button class="tab" onclick="filterCategory('保険', this)">保険・証明書</button>
+  <button class="tab" onclick="filterCategory('制度', this)">制度・福利厚生</button>
+  <button class="tab" onclick="filterCategory('その他', this)">その他</button>
+</div>
+
+<div class="container" id="faqContainer">
+
+  <!-- 休暇 -->
+  <div class="faq-item" data-category="休暇">
+    <div class="faq-question"><span><span class="tag">休暇</span>有給休暇付与のタイミングを知りたい</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">正社員・契約社員は入社時に初回付与。アルバイトは勤続6カ月後に初回付与。その後は労働基準法に基づき付与されます。詳細は就業規則をご確認ください。</div>
+  </div>
+
+  <div class="faq-item" data-category="休暇">
+    <div class="faq-question"><span><span class="tag">休暇</span>有給休暇の取得義務について知りたい</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">10日以上付与された場合、付与日から1年以内に5日以上の取得が義務です。中途入社の正社員は入社月により必要取得日数が異なります。<br><br>
+      5月入社→5日 / 6月→4.5日 / 7月→4日 / 8月→3.5日 / 9月→3日 / 10月→2.5日 / 11月→2.5日 / 12月→2日 / 1月→1.5日 / 2月→1日 / 3月→0.5日</div>
+  </div>
+
+  <div class="faq-item" data-category="休暇">
+    <div class="faq-question"><span><span class="tag">休暇</span>夏季休暇・夏休みの取得方法</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">夏季休暇制度はなく、その分有給休暇を多めに付与しています。上長とご相談の上、有給を活用してください。</div>
+  </div>
+
+  <div class="faq-item" data-category="休暇">
+    <div class="faq-question"><span><span class="tag">休暇</span>休職・時短について知りたい</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">状況に応じた個別案内となるため、Slackワークフローの「非公開問い合わせ」からご相談ください。</div>
+  </div>
+
+  <div class="faq-item" data-category="休暇">
+    <div class="faq-question"><span><span class="tag">休暇</span>代休申請はできますか</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">可能です。ルール・申請方法はMIKKE（01_AKASHI：各種マニュアル）をご確認ください。</div>
+  </div>
+
+  <div class="faq-item" data-category="休暇">
+    <div class="faq-question"><span><span class="tag">休暇</span>慶弔休暇の申請方法を教えてください</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">弔事休暇の対象と日数：<br>
+      ・配偶者・子・父母が死亡した場合 → 5日以内<br>
+      ・配偶者の父母・兄弟姉妹・祖父母（喪主）→ 5日以内<br>
+      ・配偶者の父母・兄弟姉妹・祖父母（喪主以外）→ 3日以内<br><br>
+      AKASHI申請方法はMIKKEで確認。上長への連絡も必須です。</div>
+  </div>
+
+  <div class="faq-item" data-category="休暇">
+    <div class="faq-question"><span><span class="tag">休暇</span>時短の場合の半休の時間を知りたい</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">半休は1日の就業時間の中間となります。<br>
+      例1：就業時間9:30〜17:00の場合 → 午前：9:30〜13:15、午後：14:15〜18:00<br>
+      例2：就業時間9:00〜17:00の場合 → 午前：9:00〜13:00、午後：14:00〜17:00</div>
+  </div>
+
+  <!-- 勤怠・給与 -->
+  <div class="faq-item" data-category="勤怠">
+    <div class="faq-question"><span><span class="tag">勤怠・給与</span>休日出勤の割増手当について知りたい</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">・固定残業時間以内の残業：割増25%分のみ支給<br>
+      ・固定残業時間を超える残業（固定残業代なしの場合も含む）：125%支給</div>
+  </div>
+
+  <div class="faq-item" data-category="勤怠">
+    <div class="faq-question"><span><span class="tag">勤怠・給与</span>休日出勤の振替休日について知りたい</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">・所定労働時間（9:30〜18:00）未満 → 休日手当で賃金清算（割増賃金はメンバーのみ）<br>
+      ・所定労働時間以上 → 振替休日を取得（賃金清算なし）<br>
+      ※管理職は休日割増手当なし。打刻は必要です。</div>
+  </div>
+
+  <div class="faq-item" data-category="勤怠">
+    <div class="faq-question"><span><span class="tag">勤怠・給与</span>給与明細の見方を知りたい</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">給与明細はカオナビのプロファイルブックに掲載。<br>
+      給与＝当月固定給＋前月勤怠実績（残業代等）−住民税・社会保険料等<br>
+      ※給与明細の残業時間・残業代は前月分が反映されます。<br>
+      例）5月給与（6/10支給）＝当月固定給＋4月勤怠実績</div>
+  </div>
+
+  <div class="faq-item" data-category="勤怠">
+    <div class="faq-question"><span><span class="tag">勤怠・給与</span>給与明細の残業代が間違っている</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">まず給与明細の仕組み（MIKKEの給与明細説明資料）を確認の上、それでも誤りがある場合は #人事お困りごと相談「非公開問い合わせ」へご相談ください。</div>
+  </div>
+
+  <div class="faq-item" data-category="勤怠">
+    <div class="faq-question"><span><span class="tag">勤怠・給与</span>AKASHIの締めができない</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">AKASHIお問い合わせフォームより詳細内容をご連絡ください。別途確認の上、回答いたします。</div>
+  </div>
+
+  <div class="faq-item" data-category="勤怠">
+    <div class="faq-question"><span><span class="tag">勤怠・給与</span>AKASHI上で祝日が勤務日になっている</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">AKASHIお問い合わせフォームより詳細内容をご連絡ください。別途確認の上、回答いたします。</div>
+  </div>
+
+  <div class="faq-item" data-category="勤怠">
+    <div class="faq-question"><span><span class="tag">勤怠・給与</span>36協定・勤怠管理・労働時間のルールについて知りたい</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">36協定とは、法定労働時間を超えて残業させる場合に労使間で結ぶ協定です（労働基準法第36条）。1日8時間・週40時間を超える場合に届出が必要です。<br>詳細はMIKKEの勤怠管理ページをご確認ください。</div>
+  </div>
+
+  <div class="faq-item" data-category="勤怠">
+    <div class="faq-question"><span><span class="tag">勤怠・給与</span>住民税の納税通知書が届いたのですがどうすればいいですか</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">特別徴収（給与天引き）に切り替えるため、労務ML（G_ml_iico@sold-out.co.jp）へ納税通知書のPDFを提出してください。<br>※納付期限が過ぎているものは自身で納付の上、領収書コピーと未納分を提出。</div>
+  </div>
+
+  <div class="faq-item" data-category="勤怠">
+    <div class="faq-question"><span><span class="tag">勤怠・給与</span>納会・総会の移動時間は業務時間扱いになるか</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">総会・納会時の会場への移動時間は業務時間扱いとなります。フルリモート適用の場合も交通費・宿泊費は経費精算可能です。</div>
+  </div>
+
+  <!-- 組織・異動 -->
+  <div class="faq-item" data-category="組織">
+    <div class="faq-question"><span><span class="tag">組織・異動</span>カオナビの勤務地が間違っている</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">転勤・引越による場合はVPが「異動シートに記載して申請」。VPが申請済みなのに反映されていない場合は人事へ連絡ください。</div>
+  </div>
+
+  <div class="faq-item" data-category="組織">
+    <div class="faq-question"><span><span class="tag">組織・異動</span>任用変更・職位変更・任用解除・職位解除を申請したい</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">新規任用・任用解除・任用変更すべて申請が必要です。VP以上から申請可能。【改定】職位・任用変更時の対応マニュアルをご参照ください。</div>
+  </div>
+
+  <div class="faq-item" data-category="組織">
+    <div class="faq-question"><span><span class="tag">組織・異動</span>組織変更・任用・異動・権限委譲の申請スケジュールを知りたい</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">経営会議の日程に合わせて毎月変動します。イベント・〆切カレンダーをブックマークしてご活用ください（Googleカレンダーに追加可能）。</div>
+  </div>
+
+  <div class="faq-item" data-category="組織">
+    <div class="faq-question"><span><span class="tag">組織・異動</span>自組織に人を採用したい場合の対応事項</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">VP以上から #人事お困りごと相談「非公開問い合わせ」へご相談ください。</div>
+  </div>
+
+  <div class="faq-item" data-category="組織">
+    <div class="faq-question"><span><span class="tag">組織・異動</span>リーダーにAKASHIの権限委譲・評価の権限追加をしたい</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">直属のVPが #work_任用-組織-異動-お知らせなど_人事-vp以上 チャンネルで申請。チャンネル未参加の場合は #人事お困りごと相談「非公開問い合わせ」へ。</div>
+  </div>
+
+  <div class="faq-item" data-category="組織">
+    <div class="faq-question"><span><span class="tag">組織・異動</span>AKASHI承認経路で前所属メンバーの申請が届く</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">正しい設定です。アルバイトの勤怠締め（毎月22日）が完了するまで、異動前の所属にも承認が届く仕様です。現上長は前所属メンバー分はご放念ください。</div>
+  </div>
+
+  <!-- 保険・証明書 -->
+  <div class="faq-item" data-category="保険">
+    <div class="faq-question"><span><span class="tag">保険・証明書</span>保険証はいつ届きますか</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">入社から2〜3週間でご自宅に届きます。届くまでに受診予定がある場合は「健康保険資格証明書」を各種証明書発行依頼フォームよりお申請ください。</div>
+  </div>
+
+  <div class="faq-item" data-category="保険">
+    <div class="faq-question"><span><span class="tag">保険・証明書</span>保険証を紛失した場合の対応</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">MIKKEの再発行依頼フォーム（07_健康保険証を紛失したら）より申請。再発行まで2〜3週間。受診予定がある場合は「健康保険資格証明書」を発行依頼してください。</div>
+  </div>
+
+  <div class="faq-item" data-category="保険">
+    <div class="faq-question"><span><span class="tag">保険・証明書</span>在籍証明書・就業証明書を発行してほしい</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">MIKKEの証明書発行フォームより依頼。原則押印省略（押印必須の場合はフォーム内で申請）。発行まで約2〜3週間。<br>対象：在籍証明書、就労証明書、勤務証明書、源泉徴収票（H30以前）、iDeCo証明書 など</div>
+  </div>
+
+  <div class="faq-item" data-category="保険">
+    <div class="faq-question"><span><span class="tag">保険・証明書</span>限度額適用認定証について知りたい</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">被保険者本人がTJK健保組合HPより直接申請。20,000円以上の医療費に補助があります。会社経由での申請はできません。</div>
+  </div>
+
+  <div class="faq-item" data-category="保険">
+    <div class="faq-question"><span><span class="tag">保険・証明書</span>源泉徴収票の提出は必要ですか</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">入社時に提出済みの場合は不要。年度内に他社からの収入がある場合は年末調整時に提出。未提出の場合は確定申告が必要です。</div>
+  </div>
+
+  <div class="faq-item" data-category="保険">
+    <div class="faq-question"><span><span class="tag">保険・証明書</span>源泉徴収票を発行してほしい</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">毎年1月10日前後に発行。給与締め処理完了後、カオナビのプロファイルブックにアップロードされますのでご確認ください。</div>
+  </div>
+
+  <!-- 制度・福利厚生 -->
+  <div class="faq-item" data-category="制度">
+    <div class="faq-question"><span><span class="tag">制度・福利厚生</span>社員紹介・リファラル制度について知りたい</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">社員紹介制度があります。紹介方法・手当金額・対象など詳細はMIKKE（08_社員紹介制度について）をご確認ください。</div>
+  </div>
+
+  <div class="faq-item" data-category="制度">
+    <div class="faq-question"><span><span class="tag">制度・福利厚生</span>資格取得報奨金（資格手当）について知りたい</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">カンパニー単位の資格取得手当は限定正社員も対象です。詳細はMIKKEの最新版福利厚生細則をご確認ください。</div>
+  </div>
+
+  <div class="faq-item" data-category="制度">
+    <div class="faq-question"><span><span class="tag">制度・福利厚生</span>企業型確定拠出年金はありますか</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">ソウルドアウトグループには現在企業型確定拠出年金はありません。個人型（iDeCo）の対応はMIKKE（05_各種証明書）をご確認ください。</div>
+  </div>
+
+  <div class="faq-item" data-category="制度">
+    <div class="faq-question"><span><span class="tag">制度・福利厚生</span>副業・兼業をする場合申請が必要ですか</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">雇用形態に関係なく副業申請が必要です。詳細はMIKKE（04_副業／兼業制度）をご確認ください。</div>
+  </div>
+
+  <div class="faq-item" data-category="制度">
+    <div class="faq-question"><span><span class="tag">制度・福利厚生</span>限定正社員登用について教えてください</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">限定正社員登用制度の詳細はMIKKEの資料をご確認ください。</div>
+  </div>
+
+  <div class="faq-item" data-category="制度">
+    <div class="faq-question"><span><span class="tag">制度・福利厚生</span>社内交際費・コミュニケーション費について知りたい</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">グランドルールはMIKKEをご確認ください。各カンパニーでの利用ルールは各カンパニーのSVPへお問い合わせください。</div>
+  </div>
+
+  <div class="faq-item" data-category="制度">
+    <div class="faq-question"><span><span class="tag">制度・福利厚生</span>居住地・交通費100キロ圏内のルールを知りたい</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">居住地は自由です。フルリモート承認済みの場合は100キロ圏外でも交通費問題なし。リモート未承認かつ出張不可の場合、オフィスから100キロ超の交通費は自己負担。リモートワークはVP・SVPの許可が必要です。</div>
+  </div>
+
+  <!-- その他 -->
+  <div class="faq-item" data-category="その他">
+    <div class="faq-question"><span><span class="tag">その他</span>体調不良・メンタル不調の際の対応方法</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">#人事お困りごと相談 ワークフローの「非公開問い合わせ」へご相談ください。またはfirstcallの健康医療相談サービスをご活用ください。</div>
+  </div>
+
+  <div class="faq-item" data-category="その他">
+    <div class="faq-question"><span><span class="tag">その他</span>ストレスチェック・first callのクーポンコードの期限が切れている</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">クーポンコードを更新してください（最新コードはMIKKEで確認）。それでも解決しない場合は #人事お困りごと相談「公開問い合わせ」へ。</div>
+  </div>
+
+  <div class="faq-item" data-category="その他">
+    <div class="faq-question"><span><span class="tag">その他</span>インフルエンザの予防接種・罹患時の対応</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">予防接種補助はMIKKEでご案内（「管理部門からのお知らせ&アナウンス」から「インフルエンザ」と検索）。罹患した場合、人事への報告義務・出社停止ルールはありません。上長と相談の上、就業判断してください。</div>
+  </div>
+
+  <div class="faq-item" data-category="その他">
+    <div class="faq-question"><span><span class="tag">その他</span>退職・転職・離職の手続きについて知りたい</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">退職希望の場合は少なくとも30日前までに文書で退職願を提出。まず直属の上長に相談し、退職日等の調整後に上長経由でHRBPまたは人事へ連絡。その後、労務担当より手続き案内があります。</div>
+  </div>
+
+  <div class="faq-item" data-category="その他">
+    <div class="faq-question"><span><span class="tag">その他</span>復職時にオリエンテーションはありますか</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">入社者オリエンテーション（1日・16日）にご参加いただきます。休業期間の長短問わず復職初日に参加（上長判断で変更の場合あり）。対象者は復職後Gカレにてご確認ください。</div>
+  </div>
+
+  <div class="faq-item" data-category="その他">
+    <div class="faq-question"><span><span class="tag">その他</span>引っ越し後の住民票提出はPDFでなく写真でも可ですか</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">写真での提出でも問題ありません。ただし鮮明なものに限ります。確認が取れない場合は再提出をお願いすることがあります。</div>
+  </div>
+
+  <div class="faq-item" data-category="その他">
+    <div class="faq-question"><span><span class="tag">その他</span>慶弔見舞金の申請について</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">リーダー以上が申請可能。配下メンバーのご親族に不幸があった場合、条件該当時に花輪/供花・弔電の手配が可能です。MIKKEのフォームから申請してください。</div>
+  </div>
+
+  <div class="faq-item" data-category="その他">
+    <div class="faq-question"><span><span class="tag">その他</span>エンゲージメントサーベイ・GPTWで個人が特定されますか</span><span class="arrow">▼</span></div>
+    <div class="faq-answer">経営・人事も個別回答は確認できません。5名未満の部署・セグメントは非表示のため、個人特定はできません。安心してご回答ください。</div>
+  </div>
+
+  <div class="no-result" id="noResult" style="display:none;">該当するFAQが見つかりませんでした。</div>
+</div>
+
+<script>
+  // アコーディオン
+  document.querySelectorAll('.faq-question').forEach(q => {
+    q.addEventListener('click', () => {
+      q.parentElement.classList.toggle('open');
+    });
+  });
+
+  // 検索
+  document.getElementById('searchInput').addEventListener('input', function() {
+    filterFAQ();
+  });
+
+  // カテゴリフィルター
+  let currentCategory = 'all';
+  function filterCategory(cat, el) {
+    currentCategory = cat;
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    filterFAQ();
+  }
+
+  function filterFAQ() {
+    const keyword = document.getElementById('searchInput').value.trim().toLowerCase();
+    const items = document.querySelectorAll('.faq-item');
+    let visible = 0;
+    items.forEach(item => {
+      const cat = item.dataset.category;
+      const text = item.textContent.toLowerCase();
+      const matchCat = currentCategory === 'all' || cat === currentCategory;
+      const matchKey = keyword === '' || text.includes(keyword);
+      if (matchCat && matchKey) {
+        item.style.display = '';
+        visible++;
+      } else {
+        item.style.display = 'none';
+      }
+    });
+    document.getElementById('noResult').style.display = visible === 0 ? 'block' : 'none';
+  }
+</script>
+
+</body>
+</html>
